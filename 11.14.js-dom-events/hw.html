@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .calculator {
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .calculations {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calculator">
+      <h2>Simple Calculator</h2>
+
+      <div class="result">0</div>
+      <div class="inputs-wrapper">
+        <input type="number" name="" id="value1" placeholder="value 1" />
+        <input type="number" name="" id="value2" placeholder="value 2" />
+      </div>
+      <div class="calculations">
+        <button class="btn">Addition</button>
+        <button class="btn">Subtruct</button>
+        <button class="btn">Multiply</button>
+        <button class="btn">Division</button>
+        <button class="btn">Reset</button>
+      </div>
+    </div>
+
+    <script src="./hw.js"></script>
+  </body>
+</html>

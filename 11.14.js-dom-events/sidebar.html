@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style: none;
+        text-decoration: none;
+      }
+      .open {
+        color: #fff;
+        background-color: green;
+      }
+      .sidebar {
+        background-color: teal;
+        width: 250px;
+        height: 100vh;
+        transform: translateX(-100%);
+        position: fixed;
+        top: 0;
+        left: 0;
+        transition: transform 1s;
+      }
+      .sidebar.show {
+        transform: translateX(0);
+      }
+      .sidebar ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .close {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .toggle {
+        margin-left: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="open">Open</button>
+
+    <div class="sidebar">
+      <div class="close">
+        <button class="close-btn">Close</button>
+      </div>
+      <ul>
+        <li>
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">About</a>
+        </li>
+        <li>
+          <a href="#">Services</a>
+        </li>
+        <li>
+          <a href="#">Portfolio</a>
+        </li>
+      </ul>
+    </div>
+
+    <button class="toggle">Show</button>
+
+    <script>
+      const openBtn = document.querySelector(".open");
+      const closeBtn = document.querySelector(".close-btn");
+      const sidebar = document.querySelector(".sidebar");
+      const toggleBtn = document.querySelector(".toggle");
+
+      //   openBtn.addEventListener("click", () => {
+      //     sidebar.classList.add("show");
+      //   });
+      //   closeBtn.addEventListener("click", () => {
+      //     sidebar.classList.remove("show");
+      //   });
+
+      openBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("show");
+      });
+      closeBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("show");
+      });
+
+      toggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("show");
+        if (this.textContent === "Show") {
+          this.textContent = "Hide";
+        } else {
+          this.textContent = "Show";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        height: 200vh;
+      }
+      .bg-teal {
+        background-color: teal;
+        transition: all 2s;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <h1>Home Page</h1>
+
+    <script>
+      //   load vs DomContenLoaded
+      window.addEventListener("load", function () {
+        console.log("home load event worked");
+      });
+      window.addEventListener("DOMContentLoaded", function () {
+        console.log("home DOMContentLoaded event worked");
+      });
+      window.addEventListener("unload", function () {
+        console.log("home unload event worked");
+      });
+
+      const header = document.querySelector("header");
+      window.addEventListener("scroll", function (e) {
+        // console.log(e);
+        // console.log(window.scrollY);
+        // if (window.scrollY > 0) {
+        //   header.classList.add("bg-teal");
+        // } else {
+        //   header.classList.remove("bg-teal");
+        // }
+
+        header.classList.toggle("bg-teal", window.scrollY > 0);
+      });
+    </script>
+  </body>
+</html>
