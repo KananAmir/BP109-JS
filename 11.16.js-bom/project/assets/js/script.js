@@ -143,7 +143,7 @@ productForm.addEventListener("submit", function (event) {
       title.value,
       image.value,
       price.value,
-      categorySelect.value
+      productCategory.value
     );
 
     products.push({ ...newProduct, rating: { rate: raiting.value } });
