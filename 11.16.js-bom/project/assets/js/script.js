@@ -159,10 +159,11 @@ function resetInputFields() {
   // price.value = "";
   // raiting.value = "";
   // raiting.value = "";
-  categorySelect.value = "electronics";
 
-  const allInputs = document.querySelectorAll("input");
-  allInputs.forEach((input) => (input.value = ""));
+  productForm.reset();
+
+  // const allInputs = document.querySelectorAll("input");
+  // allInputs.forEach((input) => (input.value = ""));
 }
 
 function validateForm() {
