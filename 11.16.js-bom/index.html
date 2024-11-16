@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .wrapper {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      .count {
+        font-size: 1.5rem;
+      }
+      button {
+        cursor: pointer;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+      button.start {
+        background-color: green;
+      }
+      button.stop {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="close">Close Tab</button>
+    <p class="text">Lorem ipsum dolor sit.</p>
+    <button class="copy">Copy Text</button>
+
+    <hr />
+
+    <button class="clear">Clear Timeout</button>
+
+    <hr />
+    <div class="wrapper">
+      <button class="start">Start</button>
+      <span class="count">0</span>
+      <button class="stop">Stop</button>
+    </div>
+    <br />
+    <button class="increment">Increment</button>
+    <button class="decrement">Decrement</button>
+    <button class="reset">Reset</button>
+
+    <br />
+    <br />
+    <input type="number" class="number" value="0" />
+    <button class="inc-by-input-value">increment by input value</button>
+    <script src="./script.js"></script>
+  </body>
+</html>
