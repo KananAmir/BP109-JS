@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="
+    https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="text-center my-5">Todo App</h1>
+
+    <div class="container">
+      <div class="d-flex gap-2 w-75 m-auto mb-3">
+        <input type="text" class="form-control todo-input" />
+        <button class="btn btn-primary add-btn">Add</button>
+      </div>
+      <div class="text-center mb-4">
+        <span class="error-message text-center text-danger d-none"
+          >Input is empty!!
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-primary all">All Todos</button>
+        <button class="btn btn-success completed">Completed Todos</button>
+        <button class="btn btn-warning pending">Pending Todos</button>
+        <button class="btn btn-danger clear">Clear All</button>
+      </div>
+
+      <hr />
+
+      <div class="container w-75 m-auto">
+        <ul class="list-group todo-list">
+          <!-- <li
+            class="list-group-item list-group-item-success d-flex justify-content-between align-items-center mb-3"
+          >
+            <div class="d-flex gap-2 align-items-center">
+              <input
+                class="form-check-input mt-0"
+                type="checkbox"
+                value=""
+                aria-label="Checkbox for following text input"
+              />
+              <span>lorem ipsum</span>
+            </div>
+            <div class="actions">
+              <button class="btn btn-success">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="btn btn-danger">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </li> -->
+        </ul>
+
+        <p class="pending-count text-end mt-3">
+          You have <span class="completed-count text-danger">0</span> pending
+          todos
+        </p>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js
+    "></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="./assets/js/app.js"></script>
+  </body>
+</html>
