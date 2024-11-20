@@ -22,7 +22,15 @@ loginForm.addEventListener("submit", function (event) {
     foundUser.isLogged = true;
     // localStorage.setItem("users", JSON.stringify(users));
     setDataToLocalStorage("users", users);
-    window.location.replace("index.html");
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Succesfully Logged In!",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      window.location.replace("index.html");
+    });
   } else {
     window.alert("daxil etdiyiniz məlumatlar yanlışdır!");
   }

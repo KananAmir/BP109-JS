@@ -7,5 +7,6 @@ export class User {
     this.id = Date.now();
     this.basket = [];
     this.wishlist = [];
+    this.isAdmin = false;
   }
 }

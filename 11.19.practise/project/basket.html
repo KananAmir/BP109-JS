@@ -44,31 +44,43 @@
       </div>
     </header>
 
-    <section id="products">
+    <section id="basket-page">
       <div class="container">
-        <div class="products py-5">
-          <div class="row all-products">
-            <!-- <div class="col-12 col-md-6 col-lg-3 mb-4">
-              <div class="card product-card">
-                <img src="" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-
-                  <p>Price: $ <span>100</span></p>
-                  <div class="d-flex gap-4 justify-content-center icons">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <i class="fa-regular fa-heart fav"></i>
-                    <i class="fa-solid fa-circle-info"></i>
-                  </div>
-                  <i class="fa-solid fa-heart"></i>
-                </div>
-              </div>
-            </div> -->
-          </div>
+        <div class="pasket-page py-5">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Photo</th>
+                <th>Title</th>
+                <th>Unit Price</th>
+                <th>Increase</th>
+                <th>Count</th>
+                <th>Decrease</th>
+                <th>Price</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  <button class="increase btn btn-outline-success">+</button>
+                </td>
+                <td>0</td>
+                <td>
+                  <button class="descrease btn btn btn-outline-danger">
+                    -
+                  </button>
+                </td>
+                <td></td>
+              </tr> -->
+            </tbody>
+          </table>
+          <div>Total Price: $ <span class="total-price">0</span></div>
         </div>
       </div>
     </section>
@@ -81,6 +93,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="./assets/js/common.js" type="module"></script>
-    <script src="./assets/js/main.js" type="module"></script>
+    <script src="./assets/js/basket.js" type="module"></script>
   </body>
 </html>

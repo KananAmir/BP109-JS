@@ -15,10 +15,33 @@ registerForm.addEventListener("submit", function (event) {
   let password = passwordInput.value.trim();
   const newUser = new User(userName, email, password);
 
-  users.push(newUser);
-  // localStorage.setItem("users", JSON.stringify(users));
-  setDataToLocalStorage("users", users);
-  resetForm();
+  const bool = users.some(
+    (user) => user.email === email || user.userName === userName
+  );
+
+  if (!bool) {
+    users.push(newUser);
+    // localStorage.setItem("users", JSON.stringify(users));
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Succesfully Signed Up!",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      window.location.replace("login.html");
+    });
+    setDataToLocalStorage("users", users);
+    resetForm();
+  } else {
+    Swal.fire({
+      position: "top-end",
+      icon: "error",
+      title: "Daxil etdiyiniz email və ya userName artıq istifadə edilib!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
 });
 
 function resetForm() {
