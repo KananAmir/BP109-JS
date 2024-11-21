@@ -7,11 +7,11 @@ import {
 import { products } from "./data.js";
 
 const users = getDataFromLocalStorage("users") || [];
-
 const logout = document.querySelector(".logout-btn");
 const login = document.querySelector(".login-btn");
 const register = document.querySelector(".register-btn");
 const loggedUserName = document.querySelector(".logged-user-name");
+const favoritesCards = document.querySelector(".favorites-cards");
 
 const user = users.find((u) => u.isLogged);
 if (user) {
@@ -43,12 +43,13 @@ logoutBtn.addEventListener("click", function () {
 });
 
 function drawCards(arr) {
-  allProducts.innerHTML = "";
-  arr.forEach((product) => {
+  favoritesCards.innerHTML = "";
+  arr.forEach((q) => {
+    const product = products.find((p) => q == p.id);
+
     const cardWrapper = document.createElement("div");
     const productCard = document.createElement("div");
     const productImage = document.createElement("img");
-    const productImageWrapper = document.createElement("div");
     const cardBody = document.createElement("div");
     const cardTitle = document.createElement("h5");
     const cardText = document.createElement("p");
@@ -59,37 +60,24 @@ function drawCards(arr) {
     productCard.className = "card product-card";
     productImage.src = product.imageUrl;
     productImage.className = "card-img-top";
-    productImageWrapper.className = "image-wrapper";
     cardBody.className = "card-body";
 
-    cardTitle.textContent = `${product.title.slice(0, 20)}`;
-    cardText.textContent = `${product.description.slice(0, 50)}...`;
-    cardText.className = "description";
+    cardTitle.textContent = product.title;
+    cardText.textContent = product.description;
     productPrice.innerHTML = `Price: $ <span>${product.price}</span>`;
-
-    const favProductId = user?.wishlist.find((q) => q == product.id);
 
     icons.className = "d-flex gap-4 justify-content-center icons";
     icons.innerHTML = `
-                    <button class="btn btn-outline-warning basket" data-id="${
-                      product.id
-                    }"><i class="fa-solid fa-cart-shopping"></i></button>
-                    <button class="btn btn-outline-danger fav-btn" data-id="${
-                      product.id
-                    }"><i class="${
-      favProductId ? "fa-solid fa-heart" : "fa-regular fa-heart"
-    }"></i></button>
-                    <a class="btn btn-outline-primary" href="details.html?id=${
-                      product.id
-                    }"><i class="fa-solid fa-circle-info"></i></a>
-    `;
+                      <button class="btn btn-outline-warning basket" data-id="${product.id}"><i class="fa-solid fa-cart-shopping"></i></button>
+                      <button class="btn btn-outline-danger fav-btn" data-id="${product.id}"><i class="fa-solid fa-heart"></i></button>
+                      <a class="btn btn-outline-primary" href="details.html?id=${product.id}"><i class="fa-solid fa-circle-info"></i></a>
+      `;
 
-    productImageWrapper.append(productImage);
     cardBody.append(cardTitle, cardText, productPrice, icons);
-    productCard.append(productImageWrapper, cardBody);
+    productCard.append(productImage, cardBody);
     cardWrapper.append(productCard);
 
-    allProducts.append(cardWrapper);
+    favoritesCards.append(cardWrapper);
   });
 
   const allBasketBtns = document.querySelectorAll(".basket");
@@ -118,17 +106,11 @@ function drawCards(arr) {
     btn.addEventListener("click", function () {
       const pId = this.getAttribute("data-id");
       if (user) {
-        toggleFavorites(pId);
-
-        // console.log(this.firstElementChild);
-
-        if (this.firstElementChild.classList.contains("fa-regular")) {
-          this.firstElementChild.classList.remove("fa-regular");
-          this.firstElementChild.classList.add("fa-solid");
-        } else {
-          this.firstElementChild.classList.remove("fa-solid");
-          this.firstElementChild.classList.add("fa-regular");
-        }
+        const idx = user.wishlist.findIndex((q) => q == pId);
+        user.wishlist.splice(idx, 1);
+        this.closest(".col-12").remove();
+        setDataToLocalStorage("users", users);
+        calcFavoritesCount(user);
       } else {
         Swal.fire({
           position: "top-end",
@@ -157,23 +139,12 @@ function addToBasket(pId) {
   calcBasketCount(user);
 }
 
-function toggleFavorites(productId) {
-  const idx = user.wishlist.findIndex((q) => q == productId);
-  if (idx === -1) {
-    user.wishlist.push(productId);
-  } else {
-    user.wishlist.splice(idx, 1);
-  }
-
-  setDataToLocalStorage("users", users);
-
-  calcFavoritesCount(user);
-}
-
 window.addEventListener("DOMContentLoaded", function () {
-  drawCards(products);
   if (user) {
+    drawCards(user.wishlist);
     calcBasketCount(user);
     calcFavoritesCount(user);
+  } else {
+    window.location.replace("login.html");
   }
 });

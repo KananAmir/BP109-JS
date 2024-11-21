@@ -46,6 +46,21 @@ ul li a {
 }
 
 #products,
-#basket-page {
+#basket-page,
+#favorites-page {
   margin-top: 100px;
+}
+
+.card .description {
+  /* min-height: 120px; */
+}
+
+.card .image-wrapper {
+  overflow: hidden;
+}
+.card img {
+  transition: all 1s;
+}
+.card img:hover {
+  transform: scale(1.1);
 }

@@ -1,35 +1,32 @@
-import { getDataFromLocalStorage, setDataToLocalStorage } from "./helpers.js";
+import {
+  calcBasketCount,
+  calcFavoritesCount,
+  getDataFromLocalStorage,
+  setDataToLocalStorage,
+} from "./helpers.js";
 
 import { products } from "./data.js";
 
-const navList = document.querySelector("ul");
 const tBody = document.querySelector("tbody");
+const clearAll = document.querySelector(".clear-all");
+const logout = document.querySelector(".logout-btn");
+const login = document.querySelector(".login-btn");
+const register = document.querySelector(".register-btn");
+const loggedUserName = document.querySelector(".logged-user-name");
 
 const users = getDataFromLocalStorage("users") || [];
 
 const user = users.find((user) => user.isLogged);
 
-console.log(user);
-
-if (!user) {
-  window.location.replace("login.html");
+if (user) {
+  logout.classList.replace("d-none", "d-block");
+  login.classList.replace("d-block", "d-none");
+  register.classList.replace("d-block", "d-none");
+  loggedUserName.textContent = user.userName;
 } else {
-  navList.innerHTML = `
-              <li>
-                  <a href="index.html">Home</a>
-                </li>
-                <li>
-                  <a href="basket.html">Basket <sup class="text-danger fw-bold basket-count">0</sup></a>
-                </li>
-                <li>
-                  <a href="favorites.html">Favorites</a>
-                </li>
-                <li class="d-flex gap-3 align-items-center">
-                  <h5 class="user-name m-0">${user.userName}</h5>
-                  <button class="btn btn-outline-primary logout">Logout</button>
-                </li>
-      
-      `;
+  logout.classList.replace("d-block", "d-none");
+  login.classList.replace("d-none", "d-block");
+  register.classList.replace("d-none", "d-block");
 }
 
 function drawTable(arr) {
@@ -78,10 +75,9 @@ function drawTable(arr) {
       let found = user.basket.find((q) => q.productId === id);
       found.count++;
 
-      setDataToLocalStorage("users", users);
-      drawTable(user.basket);
-      calculateTotalPrice(user.basket, products);
-      calcBasketCount();
+      // this.parentElement.nextElementSibling.textContent = found.count;
+
+      updateBasket();
     });
   });
   allDecreaseBtns.forEach((btn) => {
@@ -90,28 +86,53 @@ function drawTable(arr) {
       let found = user.basket.find((q) => q.productId === id);
       found.count--;
 
-      setDataToLocalStorage("users", users);
-      drawTable(user.basket);
-      calculateTotalPrice(user.basket, products);
-      calcBasketCount();
+      if (found.count === 0) {
+        const idx = user.basket.findIndex((q) => q.productId == id);
+        user.basket.splice(idx, 1);
+      }
+      updateBasket();
     });
   });
 
   allDeleteBtns.forEach((btn) => {
     btn.addEventListener("click", function () {
       const id = this.getAttribute("data-id");
-      const idx = user.basket.findIndex((q) => q.productId == id);
 
-      user.basket.splice(idx, 1);
-      setDataToLocalStorage("users", users);
-      drawTable(user.basket);
-      calculateTotalPrice(user.basket, products);
-      calcBasketCount();
+      Swal.fire({
+        title: "Are you sure to delete?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const idx = user.basket.findIndex((q) => q.productId == id);
+
+          // console.log(this.parentElement.parentElement);
+          // this.parentElement.parentElement.remove();
+          // this.closest("tr").remove();
+          user.basket.splice(idx, 1);
+          updateBasket();
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success",
+            timer: 1500,
+          });
+        }
+      });
     });
   });
 }
 
-drawTable(user.basket);
+function updateBasket() {
+  setDataToLocalStorage("users", users);
+  drawTable(user.basket);
+  calculateTotalPrice(user.basket, products);
+  calcBasketCount(user);
+}
 
 function calculateTotalPrice(basketArr, productsArr) {
   const totalPrice = basketArr.reduce((sum, item) => {
@@ -122,13 +143,46 @@ function calculateTotalPrice(basketArr, productsArr) {
   document.querySelector(".total-price").textContent = totalPrice.toFixed(2);
 }
 
-calculateTotalPrice(user.basket, products);
+window.addEventListener("DOMContentLoaded", function () {
+  if (user) {
+    drawTable(user.basket);
+    calculateTotalPrice(user.basket, products);
+    calcBasketCount(user);
+    showClearAll();
+    calcFavoritesCount(user);
+  }
+});
 
-function calcBasketCount() {
-  const basketCount = document.querySelector(".basket-count");
-  //   basketCount.textContent = user.basket.length;
-  const count = user.basket.reduce((sum, item) => sum + item.count, 0);
-  basketCount.textContent = count;
+clearAll.addEventListener("click", function () {
+  Swal.fire({
+    title: "Are you sure to delete all?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      user.basket.length = 0;
+      showClearAll();
+      updateBasket();
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+        timer: 1500,
+      });
+    }
+  });
+});
+
+function showClearAll() {
+  if (user.basket.length === 0) {
+    clearAll.classList.add("d-none");
+    clearAll.classList.remove("d-block");
+  } else {
+    clearAll.classList.add("d-block");
+    clearAll.classList.remove("d-none");
+  }
 }
-
-calcBasketCount();

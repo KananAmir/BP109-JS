@@ -33,20 +33,49 @@
                 <a href="index.html">Home</a>
               </li>
               <li>
-                <a href="basket.html">Basket</a>
+                <a href="basket.html"
+                  >Basket
+                  <sup class="text-danger fw-bold basket-count">0</sup></a
+                >
               </li>
               <li>
-                <a href="favorites.html">Favorites</a>
+                <a href="favorites.html"
+                  >Favorites
+                  <sup class="text-danger fw-bold favs-count">0</sup>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle logged-user-name"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  User
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="login-btn d-block">
+                    <a class="dropdown-item" href="login.html">Login</a>
+                  </li>
+                  <li class="register-btn d-block">
+                    <a class="dropdown-item" href="register.html">Register</a>
+                  </li>
+                  <li class="d-none logout-btn">
+                    <button class="dropdown-item">Logout</button>
+                  </li>
+                </ul>
               </li>
             </ul>
           </nav>
         </div>
       </div>
     </header>
-
     <section id="basket-page">
       <div class="container">
-        <div class="pasket-page py-5">
+        <div class="basket-page py-5">
+          <h3>Total Price: $ <span class="total-price">0</span></h3>
+
           <table class="table table-striped">
             <thead>
               <tr>
@@ -57,7 +86,7 @@
                 <th>Increase</th>
                 <th>Count</th>
                 <th>Decrease</th>
-                <th>Price</th>
+                <th>Sub Total</th>
                 <th>Delete</th>
               </tr>
             </thead>
@@ -80,7 +109,9 @@
               </tr> -->
             </tbody>
           </table>
-          <div>Total Price: $ <span class="total-price">0</span></div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-danger clear-all d-block">Clear All</button>
+          </div>
         </div>
       </div>
     </section>
@@ -92,7 +123,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="./assets/js/common.js" type="module"></script>
     <script src="./assets/js/basket.js" type="module"></script>
   </body>
 </html>
