@@ -40,9 +40,8 @@ function drawTable(arr) {
             <td class="d-flex gap-2">
                 <button class="btn btn-outline-danger delete" data-id=${item.id}>Delete</button>
                 <button class="btn btn-outline-success edit" data-id=${item.id}>Edit</button>
-                <a class="btn btn-primary" href="details.html?id=${item.id}">Details</a>
+                <a class="btn btn-primary d-flex align-items-center" href="details.html?id=${item.id}">Details</a>
             </td>
-
         </tr>
     `;
   });
