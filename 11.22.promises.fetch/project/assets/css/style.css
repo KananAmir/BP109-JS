@@ -43,3 +43,6 @@ table td {
   min-height: 4rem;
   vertical-align: middle;
 }
+table th {
+  text-align: center;
+}
