@@ -2,7 +2,10 @@ import { BASE_URL } from "./constant.js";
 
 const tBody = document.querySelector("tbody");
 const spinner = document.querySelector(".spinner");
+const editForm = document.querySelector("#edit-form");
 
+let customers = null;
+let editedId = null;
 window.addEventListener("DOMContentLoaded", function () {
   getData("customers");
 });
@@ -14,6 +17,7 @@ function getData(endpoint) {
     .then((data) => {
       //   console.log(data);
 
+      customers = data;
       drawTable(data);
     })
     .catch((error) => {
@@ -33,13 +37,12 @@ function drawTable(arr) {
         <tr>
             <td>${item.id}</td>
             <td>${item.companyName}</td>
-            <td>${item.contactTitle}</td>
             <td>${item.address?.phone}</td>
             <td>${item.address?.street}</td>
             <td>${item.address?.city}, ${item.address?.country}</td>
             <td class="d-flex gap-2">
                 <button class="btn btn-outline-danger delete" data-id=${item.id}>Delete</button>
-                <button class="btn btn-outline-success edit" data-id=${item.id}>Edit</button>
+                <button class="btn btn-outline-success edit" data-id=${item.id} data-bs-toggle="modal" data-bs-target="#edit-modal">Edit</button>
                 <a class="btn btn-primary d-flex align-items-center" href="details.html?id=${item.id}">Details</a>
             </td>
         </tr>
@@ -47,6 +50,7 @@ function drawTable(arr) {
   });
 
   const allDeleteBtns = document.querySelectorAll(".delete");
+  const allEditBtns = document.querySelectorAll(".edit");
 
   allDeleteBtns.forEach((btn) => {
     btn.addEventListener("click", function () {
@@ -73,6 +77,21 @@ function drawTable(arr) {
       });
     });
   });
+
+  allEditBtns.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const cId = this.getAttribute("data-id");
+
+      document
+        .querySelector(".edit-form-btn")
+        .setAttribute("data-bs-dismiss", "modal");
+
+      editedId = cId;
+      const customerObj = customers.find((q) => q.id == cId);
+
+      fillEditForm(customerObj);
+    });
+  });
 }
 
 function deleteData(endpoint, id, btn) {
@@ -90,3 +109,47 @@ function deleteData(endpoint, id, btn) {
     }
   });
 }
+
+const companyNameInput = document.querySelector("#company");
+const phoneInput = document.querySelector("#phone");
+const cityInput = document.querySelector("#city");
+const streetInput = document.querySelector("#street");
+const countryInput = document.querySelector("#country");
+
+function fillEditForm(customer) {
+  companyNameInput.value = customer.companyName;
+  phoneInput.value = customer.address?.phone;
+  cityInput.value = customer.address?.city;
+  streetInput.value = customer.address?.street;
+  countryInput.value = customer.address?.country;
+}
+
+editForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const customer = {
+    companyName: companyNameInput.value.trim(),
+    address: {
+      phone: phoneInput.value.trim(),
+      city: cityInput.value.trim(),
+      street: streetInput.value.trim(),
+      country: countryInput.value.trim(),
+    },
+  };
+
+  // console.log(customer);
+
+  fetch(`${BASE_URL}/customers/${editedId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(customer),
+  })
+    .then((res) => {
+      getData("customers");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});

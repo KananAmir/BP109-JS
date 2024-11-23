@@ -14,6 +14,22 @@
     <title>Document</title>
   </head>
   <body>
+    <header>
+      <div class="container">
+        <div class="header">
+          <nav>
+            <ul>
+              <li>
+                <a href="index.html">Home Page</a>
+              </li>
+              <li>
+                <a href="add-customer.html">Add Cutomer</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
     <div class="container">
       <h1>Customers Table</h1>
       <table class="table table-success table-striped">
@@ -21,7 +37,6 @@
           <tr>
             <th>ID</th>
             <th>Company Name</th>
-            <th>Contact Title</th>
             <th>Phone</th>
             <th>Street</th>
             <th>City, Country</th>
@@ -33,6 +48,86 @@
 
       <div class="spinner">
         <span class="loader"></span>
+      </div>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="edit-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Edit Customer
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form id="edit-form">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Company Name</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="company"
+                    aria-describedby="emailHelp"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >Phone</label
+                  >
+                  <input type="tel" class="form-control" id="phone" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >Street</label
+                  >
+                  <input type="text" class="form-control" id="street" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >City</label
+                  >
+                  <input type="text" class="form-control" id="city" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >Country</label
+                  >
+                  <input type="text" class="form-control" id="country" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary edit-form-btn"
+                form="edit-form"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
