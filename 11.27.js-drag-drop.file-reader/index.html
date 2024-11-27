@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .wrapper {
+        display: flex;
+      }
+      .drag-item {
+        width: 80px;
+        height: 80px;
+        background-color: blue;
+        color: white;
+        margin-bottom: 20px;
+      }
+      .drop-zone {
+        background-color: orange;
+        width: 150px;
+        height: 150px;
+      }
+      .hide {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="drag-item" id="drag-item" draggable="true">
+        draggable item
+      </div>
+      <div class="drop-zone"></div>
+    </div>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .image-wrapper {
+        width: 300px;
+        height: 300px;
+        border: 3px solid;
+        margin-top: 20px;
+      }
+      .image-wrapper .image {
+        width: 100%;
+      }
+
+      .drop-zone {
+        width: 300px;
+        height: 300px;
+        border: 2px dashed teal;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="profile-image">choose profile image</label>
+    <br />
+    <br />
+    <input type="file" name="" id="profile-image" />
+
+    <div class="image-wrapper">
+      <img src="" alt="" class="image" />
+    </div>
+    <hr />
+
+    <label for="profile-image">choose multiple files</label>
+    <br />
+    <br />
+    <input type="file" name="" id="multiple-files" accept="image/*" multiple />
+
+    <br />
+    <div class="drop-zone">+</div>
+    <script>
+      const fileInput = document.getElementById("profile-image");
+
+      fileInput.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        console.log(file);
+
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        reader.onload = function () {
+          console.log(reader.result);
+
+          if (file && file.type.startsWith("image")) {
+            const img = document.querySelector(".image");
+            img.src = reader.result;
+          } else {
+            alert("select only image");
+          }
+        };
+        reader.onerror = function () {
+          console.log(reader.error);
+        };
+      });
+    </script>
+
+    <script>
+      const multipleFileInput = document.querySelector("#multiple-files");
+      const dropZone = document.querySelector(".drop-zone");
+
+      multipleFileInput.addEventListener("change", function (event) {
+        // console.log(event.target.files);
+      });
+
+      dropZone.addEventListener("dragover", function (e) {
+        e.preventDefault();
+        console.log("drag over");
+      });
+      dropZone.addEventListener("drop", function (e) {
+        e.preventDefault();
+
+        // console.log(event.dataTransfer.files);
+
+        const file = event.dataTransfer.files[0];
+
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          //   console.log(reader.result);
+
+          //   dropZone.style.backgroundImage = `url(${reader.result})`;
+
+          const img = document.querySelector(".image");
+          img.src = reader.result;
+        };
+
+        reader.onerror = function () {
+          console.log(reader.error);
+        };
+      });
+    </script>
+  </body>
+</html>
